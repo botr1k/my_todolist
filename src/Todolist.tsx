@@ -1,11 +1,13 @@
-import {TaskType} from "./App.tsx";
+import {TaskPropsType} from "./App.tsx";
+import {Button} from "./Button.tsx";
 
 type Props = {
     title: string
-    tasks: TaskType[]
+    tasks: TaskPropsType[]
+    removeTask: (taskId: number) => void
 };
 
-export const Todolist = ({title, tasks}: Props) => {
+export const Todolist = ({title, tasks, removeTask}: Props) => {
     return (
         <div>
             <h3>{title}</h3>
@@ -20,7 +22,9 @@ export const Todolist = ({title, tasks}: Props) => {
                         : tasks.map(task => {
                         return (
                             <li key={task.id}>
-                                <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
+                                <input type="checkbox" checked={task.isDone}/>
+                                <span>{task.title}</span>
+                                <Button name={'x'} onClick={() => removeTask(task.id)}/>
                             </li>
                         )
                     })
@@ -28,9 +32,9 @@ export const Todolist = ({title, tasks}: Props) => {
 
             </ul>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <Button name={'All'}/>
+                <Button name={'Active'}/>
+                <Button name={'Completed'}/>
             </div>
         </div>
     );
